@@ -1,0 +1,37 @@
+.dev{
+    background-image: url(../assets/hi.png);
+      background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+
+  transform-origin: center;
+}
+.dashed-border {
+  border: 3px solid #2d3748;
+  border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+  background-image: url("../assets/aml.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+
+  transform-origin: center;
+}
+
+@keyframes approach {
+  from {
+    transform: scale(1);
+    background-size: cover;
+  }
+
+  to {
+    transform: scale(3);
+    background-size: cover;
+    border-radius: 0;
+  }
+}
+
+.animate-approach {
+  animation: approach 1s ease-in forwards;
+  position: relative;
+  z-index: 50;
+}
