@@ -95,6 +95,7 @@ const audio = audioRef.current;
                 })
               }}
               value={userName.Name}
+              required
             />
 
             <label className="font-bold mt-6">
@@ -112,6 +113,7 @@ const audio = audioRef.current;
                 })
               }}
               value={userName.Email}
+              required
             />
 
             <label className="font-bold mt-6">
