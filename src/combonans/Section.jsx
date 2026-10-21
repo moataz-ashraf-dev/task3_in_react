@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import horrorSound from "../صوت/w.mp3";
 import img from "../assets/Step_Content.png"
 import "./Section.css"
@@ -6,6 +6,20 @@ import SuccessModal from"./SuccessModal"
 
 export default function Section() {
   const [showSuccess, setShowSuccess] = useState(false)
+
+  const audioRef = useRef(null);
+
+  useEffect(() => {
+    const audio = new Audio(horrorSound);
+    audio.preload = "auto";
+    audioRef.current = audio;
+    audio.load();
+
+    return () => {
+      audio.pause();
+      audioRef.current = null;
+    };
+  }, []);
   const [userName, setUserName] = useState({
     Name: "",
     Email: "",
@@ -21,14 +35,26 @@ export default function Section() {
       num: userName.num
     }
     console.log(data)
-const audio = new Audio(horrorSound);
+const audio = audioRef.current;
 
-audio.volume = 1;
+    if (audio) {
+      audio.pause();
+      audio.volume = 1;
 
-audio.addEventListener("loadedmetadata", () => {
-  audio.currentTime = audio.duration / 3;
-  audio.play().catch(console.error);
-}, { once: true });
+      const playFromThird = () => {
+        audio.removeEventListener("loadedmetadata", playFromThird);
+        audio.currentTime = audio.duration / 3;
+        audio.play().catch(console.error);
+      };
+
+      if (Number.isFinite(audio.duration) && audio.duration > 0) {
+        playFromThird();
+      } else {
+        audio.addEventListener("loadedmetadata", playFromThird, { once: true });
+        audio.load();
+      }
+    }
+
     setShowSuccess(true)
   }
   return (

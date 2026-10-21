@@ -31,7 +31,7 @@
 }
 
 .animate-approach {
-  animation: approach 1s ease-in forwards;
+  animation: approach 0.5s ease-in forwards;
   position: relative;
   z-index: 50;
 }
